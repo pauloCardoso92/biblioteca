@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+	<title>Biblioteca - Relatório de Clientes</title>
+</h:head>
+
+<body>
+<ui:decorate template="../templates/template.xhtml">
+	<ui:define name="centro">
+	<p:panel header="Relatórios - Clientes">
+		<div style="text-align: right;">
+			<h:graphicImage url="../imagens/cliente.jpg" width="30" height="30" title="Cadastrar Cliente"></h:graphicImage>
+		</div>	
+		<h:form id="formularioRelatorioCliente" >
+				<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+				<p:panelGrid styleClass="panelGridsemBorda">
+				<p:row>
+					<p:column><h3><h:outputLabel value="Filtros"></h:outputLabel></h3></p:column>
+				</p:row>
+				<p:row>
+					<p:column><h:outputLabel value="Nome.:"></h:outputLabel></p:column>
+					<p:column><p:inputText id="nome" size="40" maxlength="60" value="#{relatorioClienteController.cliente.pessoa.nome}"></p:inputText></p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column><h:outputLabel value="Sexo.:"></h:outputLabel></p:column>
+					<p:column>
+						<h:selectOneMenu value="#{relatorioClienteController.cliente.pessoa.sexo}">
+							<f:selectItem itemLabel="" itemValue="" ></f:selectItem>
+							<f:selectItem itemLabel="Masculino" itemValue="M"></f:selectItem>
+							<f:selectItem itemLabel="Feminino" itemValue="F"></f:selectItem>
+						</h:selectOneMenu>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="Situação.:"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<h:selectOneMenu id="situacao" value="#{relatorioClienteController.cliente.pessoa.situacao}" >
+							<f:selectItem itemLabel="" itemValue="" ></f:selectItem>
+							<f:selectItem itemLabel="Ativo" id="ativo" itemValue="A"></f:selectItem>
+							<f:selectItem itemLabel="Inativo" id="inativo" itemValue="I"></f:selectItem>
+						</h:selectOneMenu>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="Ordernar Por.:"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<h:selectOneMenu id="ordenacao" value="#{relatorioClienteController.ordenacao}" >
+							<f:selectItem itemLabel="" itemValue="" ></f:selectItem>
+							<f:selectItem itemLabel="Nome" id="ordenacaoNome" itemValue="nome"></f:selectItem>
+							<f:selectItem itemLabel="Sexo" id="ordenacaoSexo" itemValue="sexo"></f:selectItem>
+							<f:selectItem itemLabel="Conta" id="ordenacaoConta" itemValue="conta"></f:selectItem>
+							<f:selectItem itemLabel="Situação" id="ordenacaoSituacao" itemValue="situacao"></f:selectItem>
+						</h:selectOneMenu>
+					</p:column>
+				</p:row>
+				
+			</p:panelGrid>
+			<br /><br /><h:outputLabel style="padding: 0 40px;"></h:outputLabel>
+			<h:commandLink action="#{relatorioClienteController.gerarRelatorioPDF()}" ajax="false" >
+				<h:graphicImage url="../imagens/pdf.jpg" width="40" height="40" title="Clique para gerar o relatório em Formato PDF." onclick="document.getElementById('formularioRelatorioCliente').target='_blank'" style="border-style:none"></h:graphicImage>
+			</h:commandLink> 
+			<h:commandLink action="#{relatorioClienteController.gerarRelatorioXLS()}" ajax="false" >
+				<h:graphicImage url="../imagens/excel.jpg" width="40" height="40" title="Clique para gerar o relatório em Formato Excel." onclick="document.getElementById('formularioRelatorioCliente').target=''" style="border-style:none"></h:graphicImage>
+			</h:commandLink>
+			<h:commandLink action="#{relatorioClienteController.gerarRelatorioDOCX()}" ajax="false" >
+				<h:graphicImage url="../imagens/word.jpg" width="40" height="40" title="Clique para gerar o relatório em Formato Doc." onclick="document.getElementById('formularioRelatorioCliente').target=''" style="border-style:none"></h:graphicImage>
+			</h:commandLink>
+			
+		</h:form>
+	</p:panel>	
+	</ui:define>
+</ui:decorate>
+
+</body>
+</html>

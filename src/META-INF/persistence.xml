@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="biblioteca" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	    <jta-data-source>java:jboss/datasources/biblioteca-ds</jta-data-source>
+ 		<class>br.com.biblioteca.dominio.entidade.Cliente</class> 
+		<class>br.com.biblioteca.dominio.entidade.Pessoa</class>
+		<class>br.com.biblioteca.dominio.entidade.Contato</class>
+		<class>br.com.biblioteca.dominio.entidade.Endereco</class>
+		<class>br.com.biblioteca.dominio.entidade.Editora</class>
+		<class>br.com.biblioteca.dominio.entidade.Categoria</class>
+		<class>br.com.biblioteca.dominio.entidade.Emprestimo</class>
+		<class>br.com.biblioteca.dominio.entidade.Log</class>
+		<class>br.com.biblioteca.dominio.entidade.Dependente</class>
+		<class>br.com.biblioteca.dominio.entidade.Livro</class>
+		<class>br.com.biblioteca.dominio.entidade.Colaborador</class>
+		<class>br.com.biblioteca.dominio.entidade.EmprestimoLivro</class>
+		<class>br.com.biblioteca.dominio.entidade.Usuario</class>
+		
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" /> 
+ 			<property name="hibernate.show_sql" value = "true" /> 
+			<property name="hibernate.format_sql" value="true" /> 
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create"/> -->
+		</properties>
+	</persistence-unit>
+</persistence>

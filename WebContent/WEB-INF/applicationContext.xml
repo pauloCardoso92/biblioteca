@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- CONFIGURANDO BD -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/biblioteca" />
+		<property name="username" value="root" />
+		<property name="password" value="java" />
+	</bean>
+
+	<!-- ACESSO AS PAGINAS DOS DIRETORIOS  -->
+	<sec:http auto-config="true" access-denied-page="/principal/acesso_negado.xhtml">
+		<sec:form-login login-page="/principal/login.xhtml" authentication-failure-url="/principal/login.xhtml?erro=true" />
+		<sec:intercept-url pattern="/categoria/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/cliente/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/colaborador/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/contato/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/dependente/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/editora/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/emprestimo/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/endereco/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/livro/**" access="ROLE_ADM, ROLE_FUNC" />
+		<sec:intercept-url pattern="/usuario/**" access="ROLE_ADM" />
+		<sec:intercept-url pattern="/principal" access="IS_AUTHENTICATED_ANONYMOUSLY" />	
+	</sec:http>
+
+	<!-- CONFIGURANDO AUTENTICACAO -->
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="SELECT login AS username, senha AS password, 'true' as enable FROM usuario WHERE login=?"
+				authorities-by-username-query="SELECT login AS username, nivel_acesso AS authority FROM usuario WHERE login=?" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+</beans>

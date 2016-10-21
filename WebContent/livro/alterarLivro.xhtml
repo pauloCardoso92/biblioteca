@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head></h:head>
+<h:body>
+
+<p:dialog modal="true" widgetVar="dialogAlterarLivro" resizable="false" header="Alterar Livro" id="alterarLivro">
+	<h:form id="formAlterarLivro">
+		<p:panelGrid id="tableAlterarLivro" styleClass="panelGridsemBorda">
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Título"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText type="hidden" value="#{livroController.livro.idLivro}"></p:inputText>
+					<p:inputText value="#{livroController.livro.nome}" maxlength="40"></p:inputText>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Ano lançamento"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{livroController.livro.anoLancamento}" maxlength="4"></p:inputText>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Editora"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<h:selectOneMenu value="#{livroController.livro.editora.idEditora}">
+						<f:selectItems value="#{livroController.getEditora()}" var="editora" itemLabel="#{editora.nome}" itemValue="#{editora.idEditora}"></f:selectItems>
+					</h:selectOneMenu>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Categoria"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<h:selectOneMenu value="#{livroController.livro.categoria.idCategoria}">
+						<f:selectItems value="#{livroController.getCategoria()}" var="categoria" itemLabel="#{categoria.nome}" itemValue="#{categoria.idCategoria}"></f:selectItems>
+					</h:selectOneMenu>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Qntd. Páginas.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{livroController.livro.qntdPaginas}" maxlength="4" size="4"></p:inputText>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Observação"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{livroController.livro.observacao}" maxlength="255"></p:inputTextarea>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Situação"></h:outputLabel>
+				</p:column>
+				<p:column>
+				<h:selectOneMenu value="#{livroController.livro.situacao}">
+					<f:selectItem itemLabel="Ativo" id="ativo" itemValue="A"></f:selectItem>
+					<f:selectItem itemLabel="Inativo" id="inativo" itemValue="I"></f:selectItem>
+				</h:selectOneMenu>
+				</p:column>
+			</p:row>
+		</p:panelGrid><br />
+		<center>
+			<p:commandButton value="Confirmar Alteração" action="#{livroController.update()}" type="submit" update=":listaLivros" onclick="dialogAlterarLivro.hide()"></p:commandButton>
+		</center>
+	</h:form>
+</p:dialog>
+
+</h:body>
+</html>

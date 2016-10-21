@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head></h:head>
+<h:body>
+
+<p:dialog modal="true" widgetVar="dialogAlterarCategoria" resizable="false" header="Alterar Categoria" id="alterarCategoria">
+	<h:form id="formAlterarCategoria">
+		<p:panelGrid id="tableAlterarCategoria" styleClass="panelGridsemBorda">
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Descrição"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText type="hidden" value="#{categoriaController.categoria.idCategoria}"></p:inputText>
+					<p:inputText value="#{categoriaController.categoria.nome}" maxlength="40"></p:inputText>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Observação"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{categoriaController.categoria.observacao}" maxlength="255"></p:inputTextarea>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Situação"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<h:selectOneMenu value="#{categoriaController.categoria.situacao}">
+						<f:selectItem itemLabel="Ativo" id="ativo" itemValue="A"></f:selectItem>
+						<f:selectItem itemLabel="Inativo" id="inativo" itemValue="I"></f:selectItem>
+					</h:selectOneMenu>
+				</p:column>
+			</p:row>
+		</p:panelGrid><br />
+		<center>
+			<p:commandButton type="submit" value="Confirmar Alteração" action="#{categoriaController.update()}" update=":listaCategorias" onClick="dialogAlterarCategoria.hide()"></p:commandButton>
+		</center>
+	</h:form>
+</p:dialog>
+
+</h:body>
+</html>

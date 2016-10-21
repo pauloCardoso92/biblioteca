@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+<h:head>
+	<title>Biblioteca - Listar Usuários</title>
+</h:head>
+<h:body>
+
+<ui:decorate template="../templates/template.xhtml">
+<ui:define name="centro">
+
+<p:panel header="Usuario - Listar">
+<div style="text-align: right;"> 
+<h:graphicImage url="../imagens/usuario.jpg" width="30" height="30" title="Lista de Usuarios."></h:graphicImage></div>
+<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+<div style="text-align: center;">
+<p:dataTable value="#{usuarioController.getAll()}" var="usuario" emptyMessage="Nenhum usuario cadastrado!" id="listaUsuarios">
+ 	<p:column headerText="Código" styleClass="fundoBranco">
+		<h:outputLabel value="#{usuario.idUsuario}" id="idUsuario"></h:outputLabel>
+	</p:column> 
+	<p:column headerText="Login">
+		<div style="text-align: left">
+			<h:outputLabel value="#{usuario.login}"></h:outputLabel>
+		</div>
+	</p:column>
+	<p:column headerText="Perfil">
+		<h:outputLabel value="Usuário Comum" rendered="${usuario.nivelAcesso == 'ROLE_FUNC'}"></h:outputLabel>
+		<h:outputLabel value="Administrador" rendered="${usuario.nivelAcesso == 'ROLE_ADM'}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="E-mail">
+		<h:outputLabel value="#{usuario.email}" ></h:outputLabel>
+	</p:column>
+	<p:column headerText="Situação">
+		<h:graphicImage url="../imagens/ativo.jpg" width="17" height="17" title="Ativo" rendered="#{usuario.situacao=='A'}"></h:graphicImage>
+		<h:graphicImage url="../imagens/inativo.jpg" width="17" height="17" title="Inativo" rendered="#{usuario.situacao=='I'}"></h:graphicImage>
+	</p:column>
+	<p:column headerText="Ações">
+		<center>
+			<p:commandLink onclick="dialogAlterarUsuario.show()" update=":formAlterarUsuario:tabelaAlterarUsuario">
+				<h:graphicImage url="../imagens/update.jpg" width="15" height="15" title="Clique para alterar o usuario." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usuario}"></f:setPropertyActionListener>
+			</p:commandLink>
+			<p:commandLink action="#{usuarioController.delete()}" update="listaUsuarios" onclick="if (!confirm('Deseja realmente excluir o registro?')) return false">
+				<h:graphicImage url="../imagens/delete.jpg" width="15" height="15" title="Clique para excluir o usuario." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{usuarioController.usuario}" value="#{usuario}"></f:setPropertyActionListener>
+			</p:commandLink>
+		</center>
+	</p:column>
+</p:dataTable>
+</div>
+</p:panel>
+</ui:define>
+</ui:decorate>
+<ui:include src="alterarUsuario.xhtml" />
+</h:body>
+</html>

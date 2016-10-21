@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+	<title>Biblioteca - Cadastrar Editora</title>
+</h:head>
+
+<body>
+<ui:decorate template="../templates/template.xhtml">
+	<ui:define name="centro">
+		<p:panel header="Editora - Cadastrar">
+		<div style="text-align: right;">
+			<h:graphicImage url="../imagens/editora2.jpg" width="30" height="30" title="Cadastrar Editora"></h:graphicImage>
+		</div>		
+		<h:form enctype="multipart/form-data" id="formEditora">
+		<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+		<p:panelGrid styleClass="panelGridsemBorda">
+
+		<p:row>
+			<p:column><h:outputLabel value="Descrição.:*"></h:outputLabel></p:column>
+			<p:column><p:inputText id="descricao" size="40" maxlength="60" value="#{editoraController.editora.nome}"></p:inputText></p:column>
+		</p:row>
+		
+		<p:row>
+			<p:column><h:outputLabel value="Observação.:"></h:outputLabel></p:column>
+			<p:column><p:inputTextarea id="observacao" size="255" maxlength="255" value="#{editoraController.editora.observacao}"></p:inputTextarea></p:column>
+		</p:row>
+				
+		</p:panelGrid>
+		<center><br />
+			<p:commandButton value="Confirmar Inclusão" type="submit" action="#{editoraController.persist}"></p:commandButton>
+			<p:commandButton value="Cancelar" type="reset"></p:commandButton>
+		</center>
+		</h:form>
+		</p:panel>
+	</ui:define>
+</ui:decorate>
+</body>
+</html>

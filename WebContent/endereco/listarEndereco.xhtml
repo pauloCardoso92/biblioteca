@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+<h:head></h:head>
+<h:body>
+	<h:form id="formListarEndereco">
+	<p:dialog widgetVar="dialogListarEndereco" header="Endereços" modal="true" resizable="false" >
+		<p:dataTable value="#{enderecoController.getAll()}" var="endereco" emptyMessage="Nenhum endereço adicionado!" id="listaEndereco">
+			<p:column headerText="Tipo">
+				<h:outputLabel value="#{endereco.tipoEndereco}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="UF">
+				<h:outputLabel value="#{endereco.uf}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Cidade">
+				<h:outputLabel value="#{endereco.cidade}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Logradouro">
+				<h:outputLabel value="#{endereco.logradouro}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Endereco">
+				<h:outputLabel value="#{endereco.endereco}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Número">
+				<h:outputLabel value="#{endereco.numero}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="CEP">
+				<h:outputLabel value="#{endereco.cep}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Município">
+				<h:outputLabel value="#{endereco.municipio}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Bairro">
+				<h:outputLabel value="#{endereco.bairro}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Complemento">
+				<h:outputLabel value="#{endereco.complemento}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Ações">
+				<h:commandLink action="#{enderecoController.removeEnderecoLista()}">
+					<center><h:graphicImage url="../imagens/delete.jpg" width="15" height="15"></h:graphicImage></center>
+					<f:setPropertyActionListener target="#{enderecoController.endereco}" value="#{endereco}"></f:setPropertyActionListener>
+				</h:commandLink>	
+			</p:column>
+		</p:dataTable>
+	</p:dialog>
+	</h:form>
+</h:body>
+</html>

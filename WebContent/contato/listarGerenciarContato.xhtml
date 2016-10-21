@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head>
+</h:head>
+<h:body>
+
+<p:dialog widgetVar="dialogGerenciarContato" header="Contatos" modal="true" resizable="false" >
+<h:form id="formCadastrarContato">
+	<p:panel>
+		<p:panelGrid columns="2">
+			<h:outputLabel value="Tipo de Contato.:"></h:outputLabel>
+			<p:selectOneMenu id="tipoContato" value="#{contatoController.contato.tipoContato}">
+				<f:selectItem itemLabel="Residencial" itemValue="residencial" noSelectionOption="true"></f:selectItem>
+				<f:selectItem itemLabel="Celular" itemValue="celular"></f:selectItem>
+				<f:selectItem itemLabel="Comercial" itemValue="comercial"></f:selectItem>
+				<f:selectItem itemLabel="Recado" itemValue="recado"></f:selectItem>
+				<f:selectItem itemLabel="E-mail" itemValue="email"></f:selectItem>
+			</p:selectOneMenu>
+			
+			<h:outputLabel value="Número.:"></h:outputLabel>
+			<p:inputMask mask="(99)9999-9999" size="15" id="telefone" value="#{contatoController.contato.numero}"></p:inputMask>
+			
+			<h:outputLabel value="E-mail.:"></h:outputLabel>
+			<p:inputText size="30" id="email" value="#{contatoController.contato.email}"></p:inputText>
+		</p:panelGrid><br />
+		<p:commandButton value="Incluir" update=":listaContato" actionListener="#{contatoController.persist()}"></p:commandButton>
+	</p:panel>
+</h:form>
+		
+	<p:dataTable value="#{contatoController.getAll()}" var="contato" emptyMessage="Nenhum contato adicionado!" id="listaContato" >
+			<p:column headerText="Tipo de Contato">
+				<h:outputText value="#{contato.tipoContato}"></h:outputText>			
+			</p:column>
+			<p:column headerText="Número">
+				<h:outputText value="#{contato.numero}"></h:outputText>
+			</p:column>
+			<p:column headerText="E-mail">
+				<h:outputText value="#{contato.email}"></h:outputText>
+			</p:column>
+			<p:column headerText="Ações" style="text-align: center;">
+				<h:commandButton action="#{contatoController.delete()}" image="../imagens/delete2.jpg" onclick="if (!confirm('Deseja realmente excluir o registro?')) return false">
+					<p:ajax update=":listaContato"></p:ajax>
+					<f:setPropertyActionListener target="#{contatoController.contato}" value="#{contato}"></f:setPropertyActionListener>
+				</h:commandButton>
+			</p:column>
+		</p:dataTable>
+		<p:ajax event="close" listener="#{contatoController.factoryContato()}"></p:ajax>
+</p:dialog>
+
+</h:body>
+</html>

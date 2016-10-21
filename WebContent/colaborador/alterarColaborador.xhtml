@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+	<title>Biblioteca - Alterar Colaborador</title>
+</h:head>
+
+<body>
+		<p:dialog modal="true" widgetVar="dialogAlterarColaborador" header="Colaborador - Alterar" resizable="false" >
+		<h:form enctype="multipart/form-data" id="formAlterarColaborador">
+		<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+		<p:panelGrid styleClass="panelGridsemBorda" id="tabelaAlterarColaborador">
+			<p:row>
+				<p:column><h:outputLabel value="Foto.:"></h:outputLabel>
+					<h:inputHidden value="#{colaboradorController.colaborador.idColaborador}"></h:inputHidden>
+					<h:inputHidden value="#{colaboradorController.colaborador.pessoa.idPessoa}"></h:inputHidden>
+				</p:column>
+				<p:column><p:fileUpload id="foto" mode="simple" value="#{colaboradorController.uploadedFile}"></p:fileUpload></p:column>
+			</p:row>
+			<p:row>
+				<p:column><h:outputLabel value="Nome.:*"></h:outputLabel></p:column>
+				<p:column><p:inputText id="nome" size="40" maxlength="60" value="#{colaboradorController.colaborador.pessoa.nome}"></p:inputText></p:column>
+				<p:column>
+					<h:outputLabel value="Matrícula.:*"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{colaboradorController.colaborador.matricula}" maxlength="10"></p:inputText>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column><h:outputLabel value="Sexo.:*"></h:outputLabel></p:column>
+				<p:column>
+					<h:selectOneRadio id="sexo" layout="pageDirection" styleClass="selectOneRadioColumn" value="#{colaboradorController.colaborador.pessoa.sexo}">
+								<f:selectItem itemLabel="Masculino" itemValue="M"></f:selectItem>
+								<f:selectItem itemLabel="Feminino" itemValue="F"></f:selectItem>
+					</h:selectOneRadio>
+				</p:column>
+				<p:column><h:outputLabel value="Data de nascimento.:"></h:outputLabel></p:column>
+				<p:column><p:calendar id="dataNascimento" yearRange="50" value="#{colaboradorController.colaborador.pessoa.dataNascimento}" navigator="true" locale="pt"></p:calendar></p:column>
+			</p:row>	
+			
+			<p:row>
+				<p:column><h:outputLabel value="CPF.:*"></h:outputLabel></p:column>
+				<p:column><p:inputMask id="cpf" mask="999.999.999-99" value="#{colaboradorController.colaborador.pessoa.cpfCnpj}"></p:inputMask></p:column>
+				<p:column><h:outputLabel value="RG.:"></h:outputLabel></p:column>
+				<p:column><p:inputText id="rg" value="#{colaboradorController.colaborador.pessoa.rg}"></p:inputText></p:column>
+			</p:row>	
+			
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Cargo/Função:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{colaboradorController.colaborador.cargoFuncao}"></p:inputText>
+				</p:column>
+				<p:column>
+					<h:outputLabel value="Tipo de Contrato.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<h:selectOneMenu value="#{colaboradorController.colaborador.tipoContrato}">
+						<f:selectItem itemLabel="Estagiário" itemValue="estagiario"></f:selectItem>
+						<f:selectItem itemLabel="Efetivo" itemValue="efetivo"></f:selectItem>
+						<f:selectItem itemLabel="Terceirizado" itemValue="terceirizado"></f:selectItem>
+					</h:selectOneMenu>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Salário.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{colaboradorController.colaborador.salario}" size="10"></p:inputText>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Observação.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{colaboradorController.colaborador.pessoa.observacao}"></p:inputTextarea>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Situação.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<h:selectOneMenu id="situacao" value="#{colaboradorController.colaborador.pessoa.situacao}" >
+						<f:selectItem itemLabel="Ativo" id="ativo" itemValue="A"></f:selectItem>
+						<f:selectItem itemLabel="Inativo" id="inativo" itemValue="I"></f:selectItem>
+					</h:selectOneMenu>
+				</p:column>
+			</p:row>
+			
+		</p:panelGrid>
+		<center>
+				<p:commandButton value="Confirmar Alteração" type="submit" action="#{colaboradorController.update()}" update=":listaColaboradores" onclick="dialogAlterarColaborador.hide()"></p:commandButton>
+				<p:commandButton value="Cancelar" type="reset" onclick="dialogAlterarColaborador.hide()"></p:commandButton>
+			</center>
+			</h:form>
+			<p:ajax event="close" listener="#{colaboradorController.factoryColaborador()}"></p:ajax>
+		</p:dialog>
+</body>
+</html>

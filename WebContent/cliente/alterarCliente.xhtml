@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+	<title>Biblioteca - Alterar Cliente</title>
+</h:head>
+
+<body>
+		<p:dialog modal="true" widgetVar="dialogAlterarCliente" header="Cliente - Alterar" resizable="false" >
+		
+			<h:form enctype="multipart/form-data" id="formAlterarCliente">
+			<!-- <center> -->
+			<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+			<p:panelGrid styleClass="panelGridsemBorda" id="tabelaAlterarCliente">
+				<p:row>
+					<p:column>
+					<h:inputHidden value="#{clienteController.cliente.idCliente}"></h:inputHidden>
+					<h:inputHidden value="#{clienteController.cliente.pessoa.idPessoa}"></h:inputHidden>
+						<h:outputLabel value="Nome.:*"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<p:inputText id="nome" size="30" maxlength="60" value="#{clienteController.cliente.pessoa.nome}"></p:inputText>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="Sexo.:*"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<h:selectOneRadio id="sexo" layout="pageDirection" styleClass="selectOneRadioColumn" value="#{clienteController.cliente.pessoa.sexo}">
+							<f:selectItem itemLabel="Masculino" itemValue="M"></f:selectItem>
+							<f:selectItem itemLabel="Feminino" itemValue="F"></f:selectItem>
+						</h:selectOneRadio>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="Data de nascimento.:"></h:outputLabel>
+					</p:column>
+					<p:column>	
+						<p:calendar id="dataNascimento" yearRange="50" value="#{clienteController.cliente.pessoa.dataNascimento}" navigator="true" locale="pt"></p:calendar>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="CPF.:*"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<p:inputMask id="cpf" mask="999.999.999-99" value="#{clienteController.cliente.pessoa.cpfCnpj}"></p:inputMask>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="RG.:"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<p:inputText id="rg" value="#{clienteController.cliente.pessoa.rg}"></p:inputText>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="Situação.:"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<h:selectOneMenu id="situacao" value="#{clienteController.cliente.pessoa.situacao}" >
+							<f:selectItem itemLabel="Ativo" id="ativo" itemValue="A"></f:selectItem>
+							<f:selectItem itemLabel="Inativo" id="inativo" itemValue="I"></f:selectItem>
+						</h:selectOneMenu>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			<center>
+				<p:commandButton value="Confirmar Alteração" type="submit" action="#{clienteController.update()}" update=":listaClientes" onclick="dialogAlterarCliente.hide()"></p:commandButton>
+				<p:commandButton value="Cancelar" type="reset" onclick="dialogAlterarCliente.hide()"></p:commandButton>
+			</center>
+			</h:form>
+			<p:ajax event="close" listener="#{clienteController.factoryCliente()}"></p:ajax>
+		</p:dialog>
+</body>
+</html>

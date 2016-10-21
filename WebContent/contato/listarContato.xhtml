@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head></h:head>
+<h:body>
+	<h:form id="formListarContato">
+	<p:dialog widgetVar="dialogListarContato" header="Contatos" modal="true" resizable="false" >
+		<p:dataTable value="#{contatoController.getAll()}" var="contato" emptyMessage="Nenhum contato adicionado!" id="listaContato">
+			<p:column headerText="Tipo de Contato">
+				<h:outputText value="#{contato.tipoContato}"></h:outputText>			
+			</p:column>
+			<p:column headerText="Número">
+				<h:outputText value="#{contato.numero}"></h:outputText>
+			</p:column>
+			<p:column headerText="E-mail">
+				<h:outputText value="#{contato.email}"></h:outputText>
+			</p:column>
+			<p:column headerText="Ações" style="text-align: center;">
+				<h:commandLink action="#{contatoController.removeContatoLista()}" onclick="if (!confirm('Deseja realmente excluir o registro?')) return false">
+					<h:graphicImage url="../imagens/delete.jpg" width="15" height="15"></h:graphicImage>
+					<f:setPropertyActionListener target="#{contatoController.contato}" value="#{contato}"></f:setPropertyActionListener>
+				</h:commandLink>
+			</p:column>
+		</p:dataTable>
+	</p:dialog>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"        
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="categoria" class="br.com.biblioteca.dominio.entidade.Categoria"></bean>
+	<bean id="cliente" class="br.com.biblioteca.dominio.entidade.Cliente"></bean>
+	<bean id="colaborador" class="br.com.biblioteca.dominio.entidade.Colaborador"></bean>
+	<bean id="contato" class="br.com.biblioteca.dominio.entidade.Contato"></bean>
+	<bean id="dependente" class="br.com.biblioteca.dominio.entidade.Dependente"></bean>
+	<bean id="editora" class="br.com.biblioteca.dominio.entidade.Editora"></bean>
+	<bean id="emprestimo" class="br.com.biblioteca.dominio.entidade.Emprestimo"></bean>
+	<bean id="emprestimoLivro" class="br.com.biblioteca.dominio.entidade.EmprestimoLivro"></bean>
+	<bean id="endereco" class="br.com.biblioteca.dominio.entidade.Endereco"></bean>
+	<bean id="livro" class="br.com.biblioteca.dominio.entidade.Livro"></bean>
+	<bean id="log" class="br.com.biblioteca.dominio.entidade.Log"></bean>
+	<bean id="pessoa" class="br.com.biblioteca.dominio.entidade.Pessoa"></bean>
+	<bean id="usuario" class="br.com.biblioteca.dominio.entidade.Usuario"></bean>
+	
+	<!-- <bean id="categoriaService" class="br.com.biblioteca.aplicacao.service.CategoriaService"></bean>
+	<bean id="clienteService" class="br.com.biblioteca.aplicacao.service.ClienteService"></bean>
+	<bean id="colaboradorService" class="br.com.biblioteca.aplicacao.service.ColaboradorService"></bean>
+	<bean id="contatoService" class="br.com.biblioteca.aplicacao.service.ContatoService"></bean>
+	<bean id="dependenteService" class="br.com.biblioteca.aplicacao.service.DependenteService"></bean>
+	<bean id="editoraService" class="br.com.biblioteca.aplicacao.service.EditoraService"></bean>
+	<bean id="emprestimoService" class="br.com.biblioteca.aplicacao.service.EmprestimoService"></bean>
+	<bean id="livroService" class="br.com.biblioteca.aplicacao.service.LivroService"></bean> -->
+	
+	<bean id="validaAcesso" class="br.com.biblioteca.aplicacao.validacoes.ValidaAcesso"></bean>
+	<bean id="validaCampos" class="br.com.biblioteca.aplicacao.validacoes.ValidaCampos"></bean>
+	<bean id="mensagem" class="br.com.biblioteca.aplicacao.service.util.Mensagem"></bean>
+	
+	<bean id="genericDAO" class="br.com.biblioteca.infraestrutura.DAO.GenericDAO" />
+	<bean id="categoriaDAO" class="br.com.biblioteca.infraestrutura.DAO.CategoriaDAO"></bean> 
+</beans>

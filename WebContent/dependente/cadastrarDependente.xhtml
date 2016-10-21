@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+	<title>Biblioteca - Cadastrar Dependente</title>
+</h:head>
+
+<body>
+<ui:decorate template="../templates/template.xhtml">
+	<ui:define name="centro">
+		<p:panel header="Dependente - Cadastrar">
+		<div style="text-align: right;">
+			<h:graphicImage url="../imagens/dependente.jpg" width="30" height="30" title="Cadastrar Dependente"></h:graphicImage>
+		</div>		
+		<h:form enctype="multipart/form-data" id="formDependente" prependId="false">
+		<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+		<p:panelGrid styleClass="panelGridsemBorda">
+			<p:row>
+				<p:column><h:outputLabel value="Cliente.:*"></h:outputLabel></p:column>
+				<p:column>
+					<p:inputText value="#{dependenteController.dependente.cliente.pessoa.nome}" size="30" id="cliente" title="Digite o nome ou parte do nome para pesquisar!"></p:inputText>
+				</p:column>
+				<p:column>
+					<p:commandLink onclick="dialogPesquisarCliente.show()" update=":formPesquisarCliente:clientes">
+						<h:graphicImage url="/imagens/lupa2.jpg" title="Clique para selecionar o cliente." style="border-style:none"></h:graphicImage>
+					</p:commandLink>
+				</p:column>
+			</p:row>
+		
+			<p:row>
+				<p:column><h:outputLabel value="Nome.:*"></h:outputLabel></p:column>
+				<p:column><p:inputText id="nome" size="40" maxlength="60" value="#{dependenteController.dependente.pessoa.nome}"></p:inputText></p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column><h:outputLabel value="Sexo.:*"></h:outputLabel></p:column>
+				<p:column>
+					<h:selectOneRadio id="sexo" layout="pageDirection" styleClass="selectOneRadioColumn" value="#{dependenteController.dependente.pessoa.sexo}">
+								<f:selectItem itemLabel="Masculino" itemValue="M"></f:selectItem>
+								<f:selectItem itemLabel="Feminino" itemValue="F"></f:selectItem>
+					</h:selectOneRadio>
+				</p:column>
+				<p:column><h:outputLabel value="Data de nascimento.:"></h:outputLabel></p:column>
+				<p:column><p:calendar id="dataNascimento" yearRange="50" value="#{dependenteController.dependente.pessoa.dataNascimento}" navigator="true" locale="pt"></p:calendar></p:column>
+			</p:row>	
+			
+			<p:row>
+				<p:column><h:outputLabel value="CPF.:*"></h:outputLabel></p:column>
+				<p:column><p:inputMask id="cpf" mask="999.999.999-99" value="#{dependenteController.dependente.pessoa.cpfCnpj}"></p:inputMask></p:column>
+				<p:column><h:outputLabel value="RG.:"></h:outputLabel></p:column>
+				<p:column><p:inputText id="rg" value="#{dependenteController.dependente.pessoa.rg}"></p:inputText></p:column>
+			</p:row>	
+			
+		</p:panelGrid>
+		<center><br />
+			<p:commandButton value="Confirmar Inclusão" type="submit" actionListener="#{dependenteController.persist}">
+				<!-- <f:setPropertyActionListener target="#{dependenteController.dependente.cliente}" value="#{clienteController.cliente}"></f:setPropertyActionListener> -->
+				<!-- <f:actionListener binding="#{clienteController.factoryCliente()}"/> -->
+			</p:commandButton>
+			<p:commandButton value="Cancelar" type="reset"></p:commandButton>
+		</center>
+		</h:form>
+		</p:panel>
+	</ui:define>
+</ui:decorate>
+<ui:include src="/cliente/pesquisarCliente.xhtml" />
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+<h:head>
+	<title>Biblioteca - Listar Colaboradores</title>
+</h:head>
+<h:body>
+
+<ui:decorate template="../templates/template.xhtml">
+<ui:define name="centro">
+
+<p:panel header="Colaborador - Listar" style="width: 100%">
+<div style="text-align: right;"> 
+<h:graphicImage url="../imagens/funcionario.jpg" width="30" height="30" title="Lista de Colaboradores."></h:graphicImage></div>
+<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+<div style="text-align: center;">
+<p:dataTable value="#{colaboradorController.getAll()}" var="colaborador" emptyMessage="Nenhum colaborador cadastrado!" id="listaColaboradores" paginator="true" rows="10">
+ 	<p:column headerText="Matricula" styleClass="fundoBranco">
+		<h:outputLabel value="#{colaborador.matricula}"></h:outputLabel>
+	</p:column> 
+	<p:column headerText="Foto">
+		<h:graphicImage url="../imagens/photo3.jpg" width="15" height="15" title="Clique para visualizar a foto do colaborador." rendered="#{colaborador.foto != null}" onclick="dialogExibeFoto.show()"></h:graphicImage>
+	</p:column>
+	<p:column headerText="Nome">
+		<div style="text-align: left">
+			<h:outputLabel value="#{colaborador.pessoa.nome}"></h:outputLabel>
+		</div>
+	</p:column>
+	<p:column headerText="Sexo">
+		<h:outputLabel value="#{colaborador.pessoa.getSexoPorExtenso()}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Dt Nascimento">
+		<h:outputLabel value="#{colaborador.pessoa.dataNascimento}">
+			<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+		</h:outputLabel>
+	</p:column>
+	<p:column headerText="Cargo/Função">
+		<h:outputLabel value="#{colaborador.cargoFuncao}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Contrato">
+		<h:outputLabel value="#{colaborador.tipoContrato}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Situação">
+		<h:graphicImage url="../imagens/ativo.jpg" width="17" height="17" title="Ativo" rendered="#{colaborador.pessoa.situacao=='A'}"></h:graphicImage>
+		<h:graphicImage url="../imagens/inativo.jpg" width="17" height="17" title="Inativo" rendered="#{colaborador.pessoa.situacao=='I'}"></h:graphicImage>
+	</p:column>
+	<p:column headerText="Ações">
+		<center>
+			<p:commandLink onclick="dialogGerenciarEndereco.show()" update=":listaEndereco">
+				<h:graphicImage url="../imagens/endereco.jpg" width="17" height="17" title="Clique para visualizar/gerenciar os endereços." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{enderecoController.endereco.pessoa}" value="#{colaborador.pessoa}"></f:setPropertyActionListener>
+				<f:actionListener binding="#{enderecoController.pesquisaEnderecosPorIdPessoa()}"></f:actionListener>
+			</p:commandLink>
+			<p:commandLink onclick="dialogGerenciarContato.show()" update=":listaContato">
+				<h:graphicImage url="../imagens/contato.jpg" width="15" height="15" title="Clique para visualizar/gerenciar os contatos." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{contatoController.contato.pessoa}" value="#{colaborador.pessoa}"></f:setPropertyActionListener>
+				<f:actionListener binding="#{contatoController.pesquisaContatosPorIdPessoa()}"></f:actionListener>
+			</p:commandLink>
+			<p:commandLink onclick="dialogAlterarColaborador.show()" update=":formAlterarColaborador:tabelaAlterarColaborador">
+				<h:graphicImage url="../imagens/update.jpg" width="15" height="15" title="Clique para alterar o colaborador." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{colaboradorController.colaborador}" value="#{colaborador}"></f:setPropertyActionListener>
+			</p:commandLink>
+			<p:commandLink action="#{colaboradorController.delete()}" update="listaColaboradores" onclick="if (!confirm('Deseja realmente excluir o registro?')) return false">
+				<h:graphicImage url="../imagens/delete.jpg" width="15" height="15" title="Clique para excluir o colaborador." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{colaboradorController.colaborador}" value="#{colaborador}"></f:setPropertyActionListener>
+			</p:commandLink>
+		</center>
+	</p:column>
+</p:dataTable>
+</div>
+</p:panel>
+</ui:define>
+</ui:decorate>
+
+<p:dialog widgetVar="dialogExibeFoto" header="#{colaborador.foto}">
+	<h:graphicImage url="D:/Workspace/Biblioteca_arquivos/colaborador_fotos/#{colaborador.foto}"></h:graphicImage>
+</p:dialog>
+
+<ui:include src="../contato/listarGerenciarContato.xhtml" />
+<ui:include src="../endereco/listarGerenciarEndereco.xhtml" />
+<ui:include src="alterarColaborador.xhtml" />
+</h:body>
+</html>

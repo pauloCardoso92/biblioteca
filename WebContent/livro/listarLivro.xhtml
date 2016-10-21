@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+<h:head>
+	<title>Biblioteca - Listar Livros</title>
+</h:head>
+<h:body>
+
+<ui:decorate template="../templates/template.xhtml">
+<ui:define name="centro">
+
+<p:panel header="Livro - Listar">
+<div style="text-align: right;">
+<h:graphicImage url="../imagens/logo02.jpg" width="80" height="30" title="Lista de Livros."></h:graphicImage></div>
+<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+<div style="text-align: center;">
+<p:dataTable value="#{livroController.getAll()}" var="livro" emptyMessage="Nenhum livro cadastrado!" id="listaLivros">
+<ui:include src="alterarLivro.xhtml" />
+ 	<p:column headerText="Código">
+		<h:outputLabel value="#{livro.idLivro}" id="idLivro"></h:outputLabel>
+	</p:column> 
+	<p:column headerText="Título">
+		<div style="text-align: left">
+			<h:outputLabel value="#{livro.nome}"></h:outputLabel>
+		</div>
+	</p:column>
+	<p:column headerText="Categoria">
+		<h:outputLabel value="#{livro.categoria.nome}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Editora">
+		<h:outputLabel value="#{livro.editora.nome}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Pág.">
+		<h:outputLabel value="#{livro.qntdPaginas}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Observação">
+		<h:outputLabel value="#{livro.observacao}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Situação">
+		<h:graphicImage url="../imagens/ativo.jpg" width="17" height="17" title="Ativo" rendered="#{livro.situacao=='A'}"></h:graphicImage>
+		<h:graphicImage url="../imagens/inativo.jpg" width="17" height="17" title="Inativo" rendered="#{livro.situacao=='I'}"></h:graphicImage>
+	</p:column>
+	<p:column headerText="Ações">
+		<center>
+			<p:commandLink onclick="dialogAlterarLivro.show()" update=":formAlterarLivro:tableAlterarLivro">
+				<h:graphicImage url="../imagens/update.jpg" width="15" height="15" title="Clique para alterar o livro." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{livroController.livro}" value="#{livro}"></f:setPropertyActionListener>
+			</p:commandLink>
+			<p:commandLink action="#{livroController.delete()}" update="listaLivros" onclick="if (!confirm('Deseja realmente excluir o registro?')) return false">
+				<h:graphicImage url="../imagens/delete.jpg" width="15" height="15" title="Clique para excluir o livro." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{livroController.livro}" value="#{livro}"></f:setPropertyActionListener>
+			</p:commandLink>
+		</center>
+	</p:column>
+</p:dataTable>
+</div>
+</p:panel>
+</ui:define>
+</ui:decorate>
+<ui:include src="alterarLivro.xhtml" />
+</h:body>
+</html>

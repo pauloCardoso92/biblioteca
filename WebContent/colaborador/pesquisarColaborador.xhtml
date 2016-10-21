@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head></h:head>
+<h:body>
+
+<p:dialog modal="true" widgetVar="dialogPesquisarCliente" header="Clientes">
+	<h:form id="formPesquisarCliente">
+	<p:dataTable value="#{dependenteController.pesquisarPorNome()}" var="cliente" emptyMessage="Nenhum registro encontrado!" id="clientes" paginator="true" rows="5">
+		<p:column headerText="Nome">
+			<p:commandLink value="#{cliente.nome}" title="Clique para selecionar o cliente." oncomplete="dialogPesquisarCliente.hide()" update=":formDependente:cliente" style="text-decoration:none;">
+				<f:setPropertyActionListener target="#{dependenteController.dependente.cliente}" value="#{cliente}"></f:setPropertyActionListener>
+			</p:commandLink>
+		</p:column>
+
+		<p:column headerText="CPF">
+			<h:outputLabel value="#{cliente.cpfCnpj}"></h:outputLabel>
+		</p:column>
+		
+		<p:column headerText="Situação">
+			<center>
+				<h:graphicImage url="../imagens/ativo.jpg" width="16" height="16" rendered="#{cliente.situacao=='A'}"></h:graphicImage>
+				<h:graphicImage url="../imagens/inativo.jpg" width="16" height="16" rendered="#{cliente.situacao=='I'}"></h:graphicImage>
+			</center>
+		</p:column>
+	</p:dataTable>
+	</h:form>
+</p:dialog>
+	
+</h:body>
+</html>

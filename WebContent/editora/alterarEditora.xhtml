@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head></h:head>
+<h:body>
+
+<p:dialog modal="true" widgetVar="dialogAlterarEditora" resizable="false" header="Alterar Editora" id="alterarEditora">
+	<h:form id="formAlterarEditora">
+		<p:panelGrid id="tableAlterarEditora" styleClass="panelGridsemBorda">
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Descrição"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText type="hidden" value="#{editoraController.editora.idEditora}"></p:inputText>
+					<p:inputText value="#{editoraController.editora.nome}" maxlength="40"></p:inputText>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Observação"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{editoraController.editora.observacao}" maxlength="255"></p:inputTextarea>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Situação"></h:outputLabel>
+				</p:column>
+				<p:column>
+				<h:selectOneMenu value="#{editoraController.editora.situacao}">
+					<f:selectItem itemLabel="Ativo" id="ativo" itemValue="A"></f:selectItem>
+					<f:selectItem itemLabel="Inativo" id="inativo" itemValue="I"></f:selectItem>
+				</h:selectOneMenu>
+				</p:column>
+			</p:row>
+		</p:panelGrid><br />
+		<center>
+			<p:commandButton value="Confirmar Alteração" action="#{editoraController.update()}" type="submit" update=":listaEditoras" onclick="dialogAlterarEditora.hide()"></p:commandButton>
+		</center>
+	</h:form>
+</p:dialog>
+
+</h:body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head></h:head>
+<h:body>
+
+<p:dialog modal="true" widgetVar="dialogAdicionarGerenciarLivros" header="Livros" resizable="false">
+	<h:form id="formAdicionarGerenciarLivros">
+		<center>
+			<h:outputLabel value="Título.: "></h:outputLabel>
+			<p:inputText value="#{livroController.livro.nome}"></p:inputText>
+			<p:commandButton value="Pesquisar" actionListener="#{livroController.pesquisarPorNome()}"></p:commandButton>
+		<br />
+		</center><br />
+		<h:outputLabel value="Livros Disponíveis"></h:outputLabel>
+		<p:dataTable id="livros" value="#{livroController.pesquisarPorNome()}" var="livro" emptyMessage="Nenhum registro encontrado!" paginator="true" rows="5">
+			<p:column headerText="Código">
+				<h:outputLabel value="#{livro.idLivro}" id="idLivro"></h:outputLabel>
+			</p:column> 
+			<p:column headerText="Título">
+				<div style="text-align: left">
+					<h:outputLabel value="#{livro.nome}"></h:outputLabel>
+				</div>
+			</p:column>
+			<p:column headerText="Categoria">
+				<h:outputLabel value="#{livro.categoria.nome}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Editora">
+				<h:outputLabel value="#{livro.editora.nome}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Observação">
+				<h:outputLabel value="#{livro.observacao}"></h:outputLabel>
+			</p:column>
+		</p:dataTable>
+		<br />
+			<h:outputLabel value="Livros Adicionados"></h:outputLabel>
+		
+		<p:dataTable id="livrosAdicionados" value="#{emprestimoController.emprestimo.livro}" var="livro" emptyMessage="Nenhum registro adicionado!" paginator="true" rows="5">
+			<p:column headerText="Código">
+				<h:outputLabel value="#{livro.idLivro}" id="idLivro"></h:outputLabel>
+			</p:column> 
+			<p:column headerText="Título">
+				<div style="text-align: left">
+					<h:outputLabel value="#{livro.nome}"></h:outputLabel>
+				</div>
+			</p:column>
+			<p:column headerText="Categoria">
+				<h:outputLabel value="#{livro.categoria.nome}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Editora">
+				<h:outputLabel value="#{livro.editora.nome}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Observação">
+				<h:outputLabel value="#{livro.observacao}"></h:outputLabel>
+			</p:column>
+		</p:dataTable>
+	</h:form>	
+</p:dialog>
+
+</h:body>
+</html>

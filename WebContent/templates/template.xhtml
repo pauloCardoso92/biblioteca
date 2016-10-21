@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+<title>Biblioteca</title>
+<style>
+.ui-widget {  /* Definindo tamanho fonte de todo sistema */
+	font-size: 11px !important;
+}      	
+.ui-layout-west { /* Mostrar menu em cima do outro p:layout */
+    z-index:20 !important;
+    overflow:visible !important;
+}
+.ui-layout-west .ui-layout-unit-content { /* Mostrar menu em cima do outro p:layout */
+    overflow:visible !important;
+}	
+
+.ui-message-info,.ui-message-error,.ui-message-warn,.ui-message-fatal { /* PERSONALIZANDO MENSAGEM */
+	border: 0!important;
+	margin: 0!important;
+	padding: 0!important;
+}
+ 
+.ui-messages-error,.ui-message-error { /* PERSONALIZANDO MENSAGEM ERROR */
+	color: #D8000C;
+	background: #fff!important;
+	font-size: 18px !important;
+}
+
+.ui-messages-info, .ui-message-info { /* PERSONALIZANDO MENSAGEM INFO */
+	background: #fff!important;
+	font-size: 18px !important;
+}
+
+.ui-panel-titlebar { /* ALTERANDO COR BARRA DE TITULO DO PANEL */
+	background: #000000!important;
+	color: white!important; 
+} 
+
+.ui-menuitem-link { /* ALTERANDO COR MENU */
+	background: #ffffff!important;
+	color: black!important;
+   	border-style: none !important;
+}
+
+.ui-menu, .ui-menu .ui-menu-child { /* REMOVENDO BORDA E DEFININDO FUNDO BRANCO DO MENU */
+	background: white !important;
+	border-style: none !important;	
+}
+
+.fundoBranco {	/* CLASSE PARA DEIXAR O FUNDO NA COR BRANCA, PODE SER CHAMADA UTILIZANDO SRTLYECLASS */
+	background: white !important;
+	/* color: white !important; */
+}
+
+.panelGridsemBorda tr, .panelGridsemBorda td {
+		    border: none !important;  
+}
+
+.ui-button {  /* AJUSTANDO COR E BORDA DOS BOTOES*/
+	background: white !important;
+	border-color: black !important;
+}
+
+.ui-paginator, .ui-paginator-top/*  ui-widget-header ui-corner-top */ {
+	background: white !important;
+}
+
+</style>
+</h:head>	
+	<p:layout id="layoutPrincipal" style="min-width:100%;max-width:100%;min-height:600px;">
+		<p:layoutUnit position="north" size="100">
+			<h:graphicImage url="../imagens/logo02.jpg" width="480" height="90"></h:graphicImage>
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<ui:insert name="centro"></ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="170" style="color:#6699FF">
+			<ui:insert name="menu">
+				<h:form>
+						<p:tieredMenu style="width:90%">
+	                     	<p:menuitem value="Menu Principal" id="subMenuPrincipal" url="../principal/index.xhtml"></p:menuitem>
+						<p:submenu label="Cliente" id="subMenuCliente" icon="ui-icon-refresh">
+							<p:menuitem value="Cadastrar" icon="ui-icon-circle-plus" url="../cliente/cadastrarCliente.xhtml" ajax="true"></p:menuitem>
+							<p:menuitem value="Listar" icon="ui-icon-grip-solid-horizontal" url="../cliente/listarCliente.xhtml"></p:menuitem>
+<!-- 							<p:menuitem value="Alterar" icon="ui-icon-pencil" ></p:menuitem>
+							<p:menuitem value="Excluir" icon="ui-icon-newwin" ></p:menuitem> -->
+						</p:submenu>
+						<p:separator></p:separator>
+						<p:submenu label="Dependente" id="subMenuDependente" icon="ui-icon-refresh">
+							<p:menuitem value="Cadastrar" icon="ui-icon-circle-plus" url="../dependente/cadastrarDependente.xhtml"></p:menuitem>
+							<p:menuitem value="Listar" icon="ui-icon-grip-solid-horizontal" url="../dependente/listarDependente.xhtml"></p:menuitem>
+							<!-- <p:menuitem value="Alterar" icon="ui-icon-pencil"></p:menuitem>
+							<p:menuitem value="Excluir" icon="ui-icon-newwin"></p:menuitem> -->
+						</p:submenu>
+						<p:separator></p:separator>
+						<p:submenu label="Colaborador" id="subMenuColaborador" icon="ui-icon-refresh">
+							<p:menuitem value="Cadastrar" icon="ui-icon-circle-plus" url="../colaborador/cadastrarColaborador.xhtml"></p:menuitem>
+							<p:menuitem value="Listar" icon="ui-icon-grip-solid-horizontal" url="../colaborador/listarColaborador.xhtml"></p:menuitem>
+						</p:submenu>
+						<p:separator></p:separator>
+						<p:submenu label="Editora" id="subMenuEditora" icon="ui-icon-refresh">
+							<p:menuitem value="Cadastrar" icon="ui-icon-circle-plus" url="../editora/cadastrarEditora.xhtml"></p:menuitem>
+							<p:menuitem value="Listar" icon="ui-icon-grip-solid-horizontal" url="../editora/listarEditora.xhtml"></p:menuitem>
+						</p:submenu>
+						<p:separator></p:separator>
+						<p:submenu label="Categoria" id="subMenuCategoria" icon="ui-icon-refresh">
+							<p:menuitem value="Cadastrar" icon="ui-icon-circle-plus" url="../categoria/cadastrarCategoria.xhtml"></p:menuitem>
+							<p:menuitem value="Listar" icon="ui-icon-grip-solid-horizontal" url="../categoria/listarCategoria.xhtml"></p:menuitem>
+						</p:submenu>
+						<p:separator></p:separator>
+						<p:submenu label="Livro" id="subMenuLivro" icon="ui-icon-refresh">
+							<p:menuitem value="Cadastrar" icon="ui-icon-circle-plus" url="../livro/cadastrarLivro.xhtml"></p:menuitem>
+							<p:menuitem value="Listar" icon="ui-icon-grip-solid-horizontal" url="../livro/listarLivro.xhtml"></p:menuitem>
+						</p:submenu>
+						<p:separator></p:separator>
+						<p:submenu label="Empréstimos" id="subMenuEmprestimo" icon="ui-icon-refresh">
+							<p:menuitem value="Registrar" icon="ui-icon-circle-plus" url="../emprestimo/registrarEmprestimo.xhtml"></p:menuitem>
+							<p:menuitem value="Listar" icon="ui-icon-grip-solid-horizontal" url="../emprestimo/listarEmprestimo.xhtml"></p:menuitem>
+						</p:submenu>
+						<p:separator></p:separator>
+						<p:submenu label="Relatórios" id="subMenuRelatorios" icon="ui-icon-refresh">
+							<p:menuitem value="Clientes" icon="ui-icon-circle-plus" url="../relatorios/relatorioCliente.xhtml"></p:menuitem>
+						</p:submenu>
+						<p:separator></p:separator>
+						<p:submenu label="Usuários" id="subMenuUsuario" icon="ui-icon-refresh">
+							<p:menuitem value="Cadastrar" icon="ui-icon-circle-plus" url="../usuario/cadastrarUsuario.xhtml"></p:menuitem>
+							<p:menuitem value="Listar" icon="ui-icon-grip-solid-horizontal" url="../usuario/listarUsuario.xhtml"></p:menuitem>
+						</p:submenu>
+						<p:submenu label="Opções" id="subMenuOpcoes" icon="ui-icon-refresh">
+							<p:menuitem value="Efetuar Login" icon="ui-icon-circle-close" url="../principal/login.xhtml"></p:menuitem>									
+							<!--<p:menuitem value="Efetuar Logout" icon="ui-icon-circle-close" url="../j_spring_security_logout" action="#{acessoController.efetuarLogout()}"></p:menuitem>-->
+						</p:submenu>
+						<p:separator></p:separator>							
+					</p:tieredMenu>		
+					Usuário.: <h:outputLabel value="#{acessoController.retornaUsuarioLogado()}"></h:outputLabel>				
+				</h:form>
+			</ui:insert>
+		</p:layoutUnit>
+		<!-- <p:layoutUnit position="south"></p:layoutUnit> -->
+	</p:layout>
+</html>

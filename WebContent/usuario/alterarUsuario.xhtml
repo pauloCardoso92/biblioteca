@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+	<title>Biblioteca - Alterar Usuário</title>
+</h:head>
+
+<body>
+		<p:dialog modal="true" widgetVar="dialogAlterarUsuario" header="Usuario - Alterar" resizable="false" >
+		
+			<h:form enctype="multipart/form-data" id="formAlterarUsuario">
+			<!-- <center> -->
+			<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+			<p:panelGrid styleClass="panelGridsemBorda" id="tabelaAlterarUsuario">
+				<p:row>
+					<p:column>
+					<h:inputHidden value="#{usuarioController.usuario.idUsuario}"></h:inputHidden>
+						<h:outputLabel value="Login.:*"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<p:inputText id="login" size="15" maxlength="15" value="#{usuarioController.usuario.login}"></p:inputText>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="Senha.:*"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<p:inputText type="password" id="senha" value="#{usuarioController.usuario.senha}"></p:inputText>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="E-mail.:*"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<p:inputText id="email" size="30" maxlength="30" value="#{usuarioController.usuario.email}"></p:inputText>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="Nível de acesso.:*"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<h:selectOneRadio id="nivelAcesso" layout="pageDirection" styleClass="selectOneRadioColumn" value="#{usuarioController.usuario.nivelAcesso}">
+							<f:selectItem itemLabel="Administrador" itemValue="ROLE_ADM"></f:selectItem>
+							<f:selectItem itemLabel="Usuário Comum" itemValue="ROLE_FUNC"></f:selectItem>
+						</h:selectOneRadio>
+					</p:column>
+				</p:row>
+				
+				<p:row>
+					<p:column>
+						<h:outputLabel value="Situação.:"></h:outputLabel>
+					</p:column>
+					<p:column>
+						<h:selectOneMenu id="situacao" value="#{usuarioController.usuario.situacao}" >
+							<f:selectItem itemLabel="Ativo" id="ativo" itemValue="A"></f:selectItem>
+							<f:selectItem itemLabel="Inativo" id="inativo" itemValue="I"></f:selectItem>
+						</h:selectOneMenu>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			<center>
+				<p:commandButton value="Confirmar Alteração" type="submit" action="#{usuarioController.update()}" update=":listaUsuarios" onclick="dialogAlterarUsuario.hide()"></p:commandButton>
+				<p:commandButton value="Cancelar" type="reset" onclick="dialogAlterarUsuario.hide()"></p:commandButton>
+			</center>
+			</h:form>
+			<p:ajax event="close" listener="#{usuarioController.factoryUsuario()}"></p:ajax>
+		</p:dialog>
+</body>
+</html>

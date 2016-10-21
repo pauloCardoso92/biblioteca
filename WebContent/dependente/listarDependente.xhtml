@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+
+<h:head>
+	<title>Biblioteca - Listar Dependentes</title>
+</h:head>
+<h:body>
+
+<ui:decorate template="../templates/template.xhtml">
+<ui:define name="centro">
+
+<p:panel header="Dependente - Listar"><div style="text-align: right">
+<h:graphicImage url="../imagens/dependente.jpg" width="30" height="30" title="Lista de Dependentes."></h:graphicImage></div>
+<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+<div style="text-align: center;">
+<p:dataTable value="#{dependenteController.getAll()}" var="dependente" emptyMessage="Nenhum dependente cadastrado!" id="listaDependentes">
+ 	<p:column headerText="Código" styleClass="fundoBranco">
+		<h:outputLabel value="#{dependente.idDependente}" id="idDependente"></h:outputLabel>
+	</p:column> 
+	<p:column headerText="Dependente">
+		<div style="text-align: left">
+			<h:outputLabel value="#{dependente.pessoa.nome}"></h:outputLabel>
+		</div>
+	</p:column>
+	<p:column headerText="Cliente">
+		<h:outputLabel value="#{dependente.cliente.pessoa.nome}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Sexo">
+		<h:outputLabel value="#{dependente.pessoa.getSexoPorExtenso()}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Dt Nascimento">
+		<h:outputLabel value="#{dependente.pessoa.dataNascimento}">
+			<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+		</h:outputLabel>
+	</p:column>
+	<p:column headerText="CPF">
+		<h:outputLabel value="#{dependente.pessoa.cpfCnpj}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="RG">
+		<h:outputLabel value="#{dependente.pessoa.rg}"></h:outputLabel>
+	</p:column>
+	<p:column headerText="Situação">
+		<h:graphicImage url="../imagens/ativo.jpg" width="17" height="17" title="Ativo" rendered="#{dependente.pessoa.situacao=='A'}"></h:graphicImage>
+		<h:graphicImage url="../imagens/inativo.jpg" width="17" height="17" title="Inativo" rendered="#{dependente.pessoa.situacao=='I'}"></h:graphicImage>
+	</p:column>
+	<p:column headerText="Ações">
+		<center>
+			<p:commandLink onclick="dialogAlterarDependente.show()" update=":formAlterarDependente">
+				<h:graphicImage url="../imagens/update.jpg" width="15" height="15" title="Clique para alterar o dependente." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{dependenteController.dependente}" value="#{dependente}"></f:setPropertyActionListener>
+			</p:commandLink>
+			<p:commandLink action="#{dependenteController.delete()}" update="listaDependentes" onclick="if (!confirm('Deseja realmente excluir o registro?')) return false">
+				<h:graphicImage url="../imagens/delete.jpg" width="15" height="15" title="Clique para excluir o dependente." style="border-style:none"></h:graphicImage>
+				<f:setPropertyActionListener target="#{dependenteController.dependente}" value="#{dependente}"></f:setPropertyActionListener>
+			</p:commandLink>
+		</center>
+	</p:column>
+</p:dataTable>
+</div>
+</p:panel>
+</ui:define>
+</ui:decorate>
+
+<ui:include src="alterarDependente.xhtml" />
+</h:body>
+</html>

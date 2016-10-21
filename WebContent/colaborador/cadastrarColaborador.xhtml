@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+	<title>Biblioteca - Cadastrar Colaborador</title>
+</h:head>
+
+<body>
+<ui:decorate template="../templates/template.xhtml">
+	<ui:define name="centro">
+		<p:panel header="Colaborador - Cadastrar" >
+		<div style="text-align: right;">
+			<h:graphicImage url="../imagens/funcionario.jpg" width="30" height="30" title="Cadastrar Colaborador"></h:graphicImage>
+		</div>		
+		<h:form enctype="multipart/form-data" id="colaborador">
+		<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+		<p:panelGrid styleClass="panelGridsemBorda">
+			<p:row>
+				<p:column><h:outputLabel value="Foto.:"></h:outputLabel></p:column>
+				<p:column><p:fileUpload id="foto" mode="simple" value="#{colaboradorController.uploadedFile}"></p:fileUpload></p:column>
+			</p:row>
+			<p:row>
+				<p:column><h:outputLabel value="Nome.:*"></h:outputLabel></p:column>
+				<p:column><p:inputText id="nome" size="40" maxlength="60" value="#{colaboradorController.colaborador.pessoa.nome}"></p:inputText></p:column>
+				<p:column>
+					<h:outputLabel value="Matrícula.:*"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{colaboradorController.colaborador.matricula}" maxlength="10"></p:inputText>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column><h:outputLabel value="Sexo.:*"></h:outputLabel></p:column>
+				<p:column>
+					<h:selectOneRadio id="sexo" layout="pageDirection" styleClass="selectOneRadioColumn" value="#{colaboradorController.colaborador.pessoa.sexo}">
+								<f:selectItem itemLabel="Masculino" itemValue="M"></f:selectItem>
+								<f:selectItem itemLabel="Feminino" itemValue="F"></f:selectItem>
+					</h:selectOneRadio>
+				</p:column>
+				<p:column><h:outputLabel value="Data de nascimento.:"></h:outputLabel></p:column>
+				<p:column><p:calendar id="dataNascimento" yearRange="50" value="#{colaboradorController.colaborador.pessoa.dataNascimento}" navigator="true" locale="pt"></p:calendar></p:column>
+			</p:row>	
+			
+			<p:row>
+				<p:column><h:outputLabel value="CPF.:*"></h:outputLabel></p:column>
+				<p:column><p:inputMask id="cpf" mask="999.999.999-99" value="#{colaboradorController.colaborador.pessoa.cpfCnpj}"></p:inputMask></p:column>
+				<p:column><h:outputLabel value="RG.:"></h:outputLabel></p:column>
+				<p:column><p:inputText id="rg" value="#{colaboradorController.colaborador.pessoa.rg}"></p:inputText></p:column>
+			</p:row>	
+			
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Cargo/Função:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{colaboradorController.colaborador.cargoFuncao}"></p:inputText>
+				</p:column>
+				<p:column>
+					<h:outputLabel value="Tipo de Contrato.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{colaboradorController.colaborador.tipoContrato}">
+						<f:selectItem itemLabel="Estagiário" itemValue="estagiario"></f:selectItem>
+						<f:selectItem itemLabel="Efetivo" itemValue="efetivo"></f:selectItem>
+						<f:selectItem itemLabel="Terceirizado" itemValue="terceirizado"></f:selectItem>
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Salário.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{colaboradorController.colaborador.salario}" size="10"></p:inputText>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Observação.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{colaboradorController.colaborador.pessoa.observacao}"></p:inputTextarea>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column><h:outputLabel value="Contato.:"></h:outputLabel></p:column>
+				<p:column>
+					<p:commandLink oncomplete="dialogIncluirContato.show()">
+						<h:graphicImage url="../imagens/contato.jpg" width="22" height="22" title="Clique para adicionar um Contato." style="border-style:none"></h:graphicImage>
+					</p:commandLink>
+					<p:commandLink oncomplete="dialogListarContato.show()" update=":formListarContato:listaContato">
+						<h:graphicImage url="../imagens/update.jpg" width="22" height="22" title="Clique para gerenciar os Contatos." style="border-style:none"></h:graphicImage>
+					</p:commandLink>
+				</p:column>
+				<p:column><h:outputLabel value="Endereço.:"></h:outputLabel></p:column>
+				<p:column>
+					<p:commandLink oncomplete="dialogIncluirEndereco.show()">
+						<h:graphicImage url="../imagens/endereco.jpg" width="22" height="22" title="Clique para adicionar um Endereço." style="border-style:none"></h:graphicImage>
+					</p:commandLink>
+					<p:commandLink oncomplete="dialogListarEndereco.show()" update=":formListarEndereco:listaEndereco">
+						<h:graphicImage url="../imagens/update.jpg" width="22" height="22" title="Clique para gerenciar os Endereços." style="border-style:none"></h:graphicImage>
+					</p:commandLink>
+				</p:column>
+			</p:row>	
+							
+		</p:panelGrid>
+		<center><br />
+			<p:commandButton value="Confirmar Inclusão" type="submit" actionListener="#{colaboradorController.persist()}" ajax="false">
+				<f:actionListener binding="#{contatoController.persistAoCadastrarColaborador()}"></f:actionListener>
+				<f:actionListener binding="#{enderecoController.persistAoCadastrarColaborador()}"></f:actionListener>
+			</p:commandButton>
+			<p:commandButton value="Cancelar" type="reset"></p:commandButton>
+		</center>
+		</h:form>
+		</p:panel>
+	</ui:define>
+</ui:decorate>
+<ui:include src="../contato/cadastrarContato.xhtml"></ui:include>
+<ui:include src="../endereco/cadastrarEndereco.xhtml"></ui:include>
+<ui:include src="../contato/listarContato.xhtml"></ui:include>
+<ui:include src="../endereco/listarEndereco.xhtml"></ui:include>
+</body>
+</html>

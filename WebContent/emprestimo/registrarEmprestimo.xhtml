@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+<h:head>
+	<title>Biblioteca - Registrar Empréstimo</title>
+</h:head>
+
+<body>
+<ui:decorate template="../templates/template.xhtml">
+	<ui:define name="centro">
+		<p:panel header="Empréstimo - Cadastrar">
+		<div style="text-align: right;">
+			<h:graphicImage url="../imagens/registrar.jpg" width="30" height="30" title="Registrar Empréstimo"></h:graphicImage>
+		</div>		
+		<h:form enctype="multipart/form-data" id="formEmprestimo">
+		<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+		<p:panelGrid styleClass="panelGridsemBorda">
+			<p:row>
+				<p:column><h:outputLabel value="Cliente / Dependente.:*"></h:outputLabel></p:column>
+				<p:column>
+					<p:inputText value="#{emprestimoController.emprestimo.pessoa.nome}" size="30" id="clienteDependente" title="Digite o nome ou parte do nome para pesquisar!"></p:inputText>
+				</p:column>
+				<p:column>
+					<p:commandLink onclick="dialogPesquisarClienteDependente.show()" update=":formPesquisarClienteDependente:clientesDependentes">
+						<h:graphicImage url="/imagens/lupa2.jpg" title="Clique para selecionar o cliente ou dependente." style="border-style:none"></h:graphicImage>
+					</p:commandLink>
+				</p:column>
+			</p:row>
+		
+			<p:row>
+				<p:column><h:outputLabel value="Livro(s).:*"></h:outputLabel></p:column>
+				<p:column>
+					<p:inputText value="#{emprestimoController.emprestimo.livro}" size="30" id="livro" title="Digite o título ou parte do título para pesquisar!"></p:inputText>
+				</p:column>
+				<p:column>
+					<p:commandLink onclick="dialogAdicionarGerenciarLivros.show()" update=":formAdicionarGerenciarLivros:livros">
+						<h:graphicImage url="/imagens/lupa2.jpg" title="Clique para gerenciar o(s) livro(s)." style="border-style:none"></h:graphicImage>
+					</p:commandLink>
+				</p:column>
+			</p:row>
+			
+			<p:row>
+				<p:column><h:outputLabel value="Data de empréstimo.:*"></h:outputLabel></p:column>
+				<p:column>
+					<p:inputMask mask="99/99/9999" value="#{emprestimoController.emprestimo.dataEmprestimo}">
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+				</p:column>
+				<p:column>
+					<h:outputLabel value="Data Prevista de devolução.:*"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputMask mask="99/99/9999" value="#{emprestimoController.emprestimo.dataDevolucao}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+					</p:inputMask>
+				</p:column>
+			</p:row>	
+			
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Observação.:"></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputTextarea value="#{emprestimoController.emprestimo.observacao}"></p:inputTextarea>
+				</p:column>
+			</p:row>	
+			
+		</p:panelGrid>
+		<center><br />
+			<p:commandButton value="Registrar Empréstimo" type="submit" actionListener="#{emprestimoController.persist}"></p:commandButton>
+			<p:commandButton value="Cancelar" type="reset"></p:commandButton>
+		</center>
+		</h:form>
+		</p:panel>
+	</ui:define>
+</ui:decorate>
+<ui:include src="pesquisarClienteDependente.xhtml" />
+<ui:include src="gerenciarLivro.xhtml" />
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head>
+</h:head>
+<h:body>
+
+<p:dialog widgetVar="dialogGerenciarEndereco" header="Enderecos" modal="true" resizable="false" >
+<h:form id="formCadastrarEndereco">
+	<p:panel>
+		<p:panelGrid columns="6">
+			<h:outputLabel value="Tipo de Endereço.:"></h:outputLabel>
+			<p:selectOneMenu id="tipoEndereco" value="#{enderecoController.endereco.tipoEndereco}">
+				<f:selectItem itemLabel="Principal" id="principal" itemValue="principal"></f:selectItem>
+				<f:selectItem itemLabel="Cobrança" id="conranca" itemValue="cobranca"></f:selectItem>
+			</p:selectOneMenu>
+			<h:outputLabel value="UF.:"></h:outputLabel>
+			<p:selectOneMenu id="uf" value="#{enderecoController.endereco.uf}">
+				<f:selectItem itemLabel="AC" id="AC" itemValue="AC"></f:selectItem>
+				<f:selectItem itemLabel="AL" id="AL" itemValue="AL"></f:selectItem>
+				<f:selectItem itemLabel="AM" id="AM" itemValue="AM"></f:selectItem>
+				<f:selectItem itemLabel="AP" id="AP" itemValue="AP"></f:selectItem>
+				<f:selectItem itemLabel="BA" id="BA" itemValue="BA"></f:selectItem>
+				<f:selectItem itemLabel="CE" id="CE" itemValue="CE"></f:selectItem>
+				<f:selectItem itemLabel="DF" id="DF" itemValue="DF"></f:selectItem>
+				<f:selectItem itemLabel="ES" id="ES" itemValue="ES"></f:selectItem>
+				<f:selectItem itemLabel="GO" id="GO" itemValue="GO"></f:selectItem>
+				<f:selectItem itemLabel="MA" id="MA" itemValue="MA"></f:selectItem>
+				<f:selectItem itemLabel="MT" id="MT" itemValue="MT"></f:selectItem>
+				<f:selectItem itemLabel="MS" id="MS" itemValue="MS"></f:selectItem>
+				<f:selectItem itemLabel="MG" id="MG" itemValue="MG"></f:selectItem>
+				<f:selectItem itemLabel="PA" id="PA" itemValue="PA"></f:selectItem>
+				<f:selectItem itemLabel="PB" id="PB" itemValue="PB"></f:selectItem>
+				<f:selectItem itemLabel="PR" id="PR" itemValue="PR"></f:selectItem>
+				<f:selectItem itemLabel="PE" id="PE" itemValue="PE"></f:selectItem>
+				<f:selectItem itemLabel="PI" id="PI" itemValue="PI"></f:selectItem>
+				<f:selectItem itemLabel="RJ" id="RJ" itemValue="RJ"></f:selectItem>
+				<f:selectItem itemLabel="RN" id="RN" itemValue="RN"></f:selectItem>
+                <f:selectItem itemLabel="RO" id="RO" itemValue="RO"></f:selectItem>
+				<f:selectItem itemLabel="RS" id="RS" itemValue="RS"></f:selectItem>
+				<f:selectItem itemLabel="RR" id="RR" itemValue="RR"></f:selectItem>
+				<f:selectItem itemLabel="SC" id="SC" itemValue="SC"></f:selectItem>
+				<f:selectItem itemLabel="SE" id="SE" itemValue="SE"></f:selectItem>
+				<f:selectItem itemLabel="SP" id="SP" itemValue="SP"></f:selectItem>
+				<f:selectItem itemLabel="TO" id="TO" itemValue="TO"></f:selectItem>
+			</p:selectOneMenu>
+			
+			<h:outputLabel value="Cidade.:"></h:outputLabel>
+			<p:inputText id="cidade" value="#{enderecoController.endereco.cidade}"></p:inputText>
+			
+			<h:outputLabel value="Logradouro.:"></h:outputLabel>
+			<p:inputText id="logradouro" value="#{enderecoController.endereco.logradouro}"></p:inputText>
+			
+			<h:outputLabel value="Endereco.:"></h:outputLabel>
+			<p:inputText id="endereco" value="#{enderecoController.endereco.endereco}"></p:inputText>
+			
+			<h:outputLabel value="Número.:"></h:outputLabel>
+			<p:inputText id="numero" value="#{enderecoController.endereco.numero}"></p:inputText>
+			
+			<h:outputLabel value="CEP.:"></h:outputLabel>
+			<p:inputText id="cep" value="#{enderecoController.endereco.cep}"></p:inputText>
+			
+			<h:outputLabel value="Município.:"></h:outputLabel>
+			<p:inputText id="municipio" value="#{enderecoController.endereco.municipio}"></p:inputText>
+			
+			<h:outputLabel value="Complemento.:"></h:outputLabel>
+			<p:inputText id="complemento" value="#{enderecoController.endereco.complemento}"></p:inputText>
+			
+			<h:outputLabel value="Bairro.:"></h:outputLabel>
+			<p:inputText id="bairro" value="#{enderecoController.endereco.bairro}"></p:inputText>
+		</p:panelGrid><br />
+		<p:commandButton value="Incluir" update=":listaEndereco" actionListener="#{enderecoController.persist()}"></p:commandButton>
+	</p:panel>
+</h:form>
+		
+	<p:dataTable value="#{enderecoController.getAll()}" var="endereco" emptyMessage="Nenhum endereço adicionado!" id="listaEndereco" >
+			<p:column headerText="Tipo">
+				<h:outputLabel value="#{endereco.tipoEndereco}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="UF">
+				<h:outputLabel value="#{endereco.uf}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Cidade">
+				<h:outputLabel value="#{endereco.cidade}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Logradouro">
+				<h:outputLabel value="#{endereco.logradouro}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Endereco">
+				<h:outputLabel value="#{endereco.endereco}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Número">
+				<h:outputLabel value="#{endereco.numero}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="CEP">
+				<h:outputLabel value="#{endereco.cep}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Município">
+				<h:outputLabel value="#{endereco.municipio}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Bairro">
+				<h:outputLabel value="#{endereco.bairro}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Complemento">
+				<h:outputLabel value="#{endereco.complemento}"></h:outputLabel>
+			</p:column>
+			<p:column headerText="Ações" style="text-align: center;">
+				<h:commandButton action="#{enderecoController.delete()}" image="../imagens/delete2.jpg" >
+					<p:ajax update=":listaEndereco"></p:ajax>
+					<f:setPropertyActionListener target="#{enderecoController.endereco}" value="#{endereco}"></f:setPropertyActionListener>
+				</h:commandButton>
+			</p:column>
+		</p:dataTable>
+		<p:ajax event="close" listener="#{enderecoController.factoryEndereco()}"></p:ajax>
+</p:dialog>
+
+</h:body>
+</html>

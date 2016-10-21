@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+<h:head></h:head>
+<h:body>
+<p:dialog modal="true" widgetVar="dialogAlterarDependente" resizable="false" header="Dependente - Alterar">
+<h:form id="formAlterarDependente" prependId="false">
+	<p:panelGrid styleClass="panelGridsemBorda">
+		<p:row>
+			<p:column>
+				<h:outputLabel value="Dependente.:*"></h:outputLabel>
+			</p:column>
+			<p:column>
+				<!-- <h:inputHidden value="#{dependenteController.dependente.pessoa.idPessoa}"></h:inputHidden> -->
+				<p:inputText value="#{dependenteController.dependente.pessoa.nome}"></p:inputText>
+			</p:column>
+		</p:row>
+		
+		<p:row>
+			<p:column>
+				<h:outputLabel value="Cliente.:*"></h:outputLabel>
+			</p:column>
+			<p:column>
+				<p:inputText value="#{dependenteController.dependente.cliente.pessoa.nome}" id="cliente"></p:inputText>
+				<p:commandLink onclick="dialogPesquisarCliente.show()" update=":formPesquisarCliente:clientes">
+					<h:graphicImage url="/imagens/lupa2.jpg" title="Clique para alterar o cliente." style="border-style:none"></h:graphicImage>
+				</p:commandLink>
+			</p:column>
+		</p:row>
+		
+		<p:row>
+			<p:column>
+				<h:outputLabel value="Sexo.:*"></h:outputLabel>
+			</p:column>
+			<p:column>
+				<h:selectOneRadio value="#{dependenteController.dependente.pessoa.sexo}" layout="pageDirection" styleClass="selectOneRadioColumn">
+					<f:selectItem itemLabel="Masculino" itemValue="M"></f:selectItem>
+					<f:selectItem itemLabel="Feminino" itemValue="F"></f:selectItem>
+				</h:selectOneRadio>
+			</p:column>
+		</p:row>
+		
+		<p:row>
+			<p:column>
+				<h:outputLabel value="Data de nascimento.:"></h:outputLabel>
+			</p:column>
+			<p:column>
+				<p:calendar yearRange="80" navigator="true" value="#{dependenteController.dependente.pessoa.dataNascimento}"></p:calendar>
+			</p:column>	
+		</p:row>
+		
+		<p:row>
+			<p:column>
+				<h:outputLabel value="CPF.:"></h:outputLabel>
+			</p:column>
+			<p:column>
+				<p:inputMask mask="999.999.999-99" value="#{dependenteController.dependente.pessoa.cpfCnpj}"></p:inputMask>
+			</p:column>
+		</p:row>
+		
+		<p:row>
+			<p:column>
+				<h:outputLabel value="RG.:"></h:outputLabel>
+			</p:column>
+			<p:column>	
+				<p:inputText value="#{dependenteController.dependente.pessoa.rg}"></p:inputText>
+			</p:column>
+		</p:row>
+
+		<p:row>	
+			<p:column>	
+				<h:outputLabel value="Situação.:*"></h:outputLabel>
+			</p:column>
+			<p:column>
+				<h:selectOneMenu value="#{dependenteController.dependente.pessoa.situacao}">
+					<f:selectItem itemLabel="Ativo" itemValue="A"></f:selectItem>
+					<f:selectItem itemLabel="Inativo" itemValue="I"></f:selectItem>
+				</h:selectOneMenu>
+			</p:column>
+		</p:row>
+	</p:panelGrid><br /><center>
+	<p:commandButton actionListener="#{dependenteController.update()}" value="Confirmar Alteração" type="submit" oncomplete="dialogAlterarDependente.hide()" update=":listaDependentes">
+		<f:actionListener binding="#{dependenteController.factoryDependente()}"></f:actionListener>
+	</p:commandButton>
+	</center>
+</h:form>
+<!-- <p:ajax event="close" listener="#{dependenteController.factoryDependente()}"></p:ajax> -->
+</p:dialog>
+<ui:include src="/cliente/pesquisarCliente.xhtml" />
+</h:body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>.: Login</title>
+	<style>
+		img.alignright {float:right; margin:0 0 1em 1em}
+	</style>
+</h:head>
+<h:body>
+<ui:decorate template="../templates/template.xhtml">
+	<ui:define name="centro">
+	<font size="2" style="font-weight:bold;">
+		<h:outputText value="Usuário ou senha incorretos!" rendered="#{param.erro}" style="color: darkred"/>
+	</font>
+	<h:graphicImage styleClass="alignright" url="../imagens/login.jpg" width="100" height="100" rendered="#{not param.erro}" />
+	<h:graphicImage styleClass="alignright" url="../imagens/acessoNegado.jpg" width="100" height="100" rendered="#{param.erro}" />
+	
+ 	<form action="../j_spring_security_check" method="post">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="j_username" value="Usuário *" /> 
+                    <h:inputText id="j_username" required="true"  />
+                    
+                    <h:outputLabel for="j_password" value="Senha: *" />
+                    <h:inputSecret id="j_password" required="true" />
+                    <!-- <h:form>
+	                    <h:commandLink>
+	                    	<h:graphicImage url="../imagens/fag.jpg" width="25" height="25" title="Esqueci minha senha!" style="border-style:none"></h:graphicImage>
+	                    </h:commandLink>
+                    </h:form> -->
+                    <h:commandButton value="Entrar"></h:commandButton>
+                </h:panelGrid>
+    </form>
+ 	<!-- 	<h:form action="../j_spring_security_check">
+		<p:messages showDetail="true" id="mensagens" autoUpdate="true" closable="true"></p:messages>
+		<p:panelGrid>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Login.: "></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:inputText value="#{acessoController.usuario.login}" id="j_username"></p:inputText>
+					<p:inputText id="j_username"></p:inputText>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Senha.: "></h:outputLabel>
+				</p:column>
+				<p:column>
+					<p:password value="#{acessoController.usuario.senha}" id="j_password"></p:password>
+					<p:password id="j_password"></p:password>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column><center>
+					<h:commandLink>
+						<h:graphicImage url="../imagens/fag.jpg" width="25" height="25" title="Esqueci minha senha!" style="border-style:none"></h:graphicImage>
+					</h:commandLink></center>
+				</p:column>
+				<p:column>
+					
+					<p:commandButton value="Entrar"></p:commandButton>
+					<p:commandButton type="reset" value="Limpar"></p:commandButton>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		</h:form>  -->
+	</ui:define>
+</ui:decorate>
+
+</h:body>
+</html>
